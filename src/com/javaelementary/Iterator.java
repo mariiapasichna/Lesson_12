@@ -1,18 +1,19 @@
 package com.javaelementary;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Iterator {
     private int[][] arr;
-    private int[] arr2;
-    private int size;
     private int current;
+    private int size;
+    private List<innerIterator> iterators;
 
     public Iterator(int[][] arr) {
         this.arr = arr;
         this.current = -1;
         this.size = getSize();
-        this.arr2 = createIterableArray();
+        this.iterators = createList();
     }
 
     public boolean hasNext() {
@@ -20,18 +21,30 @@ public class Iterator {
     }
 
     public int next() {
-        return arr2[++current];
+        int index = 0;
+        int min = 0;
+        for (int i = 0; i < iterators.size(); i++) {
+            if (iterators.get(i).hasNext()) {
+                min = iterators.get(i).getCurrent();
+                break;
+            }
+        }
+        for (int i = 0; i < iterators.size(); i++) {
+            if (iterators.get(i).hasNext() && iterators.get(i).getCurrent() <= min) {
+                min = iterators.get(i).getCurrent();
+                index = i;
+            }
+        }
+        current++;
+        return iterators.get(index).next();
     }
 
-    private int[] createIterableArray() {
-        int[] arr2 = new int[size];
-        int index = 0;
+    private List<innerIterator> createList() {
+        List<innerIterator> iterators = new ArrayList<>();
         for (int i = 0; i < arr.length; i++) {
-            System.arraycopy(arr[i], 0, arr2, index, arr[i].length);
-            index += arr[i].length;
+            iterators.add(new innerIterator(arr[i]));
         }
-        Arrays.sort(arr2);
-        return arr2;
+        return iterators;
     }
 
     private int getSize() {
@@ -39,5 +52,27 @@ public class Iterator {
             size += arr[i].length;
         }
         return size;
+    }
+
+    private static class innerIterator {
+        private int[] arr;
+        private int current;
+
+        public innerIterator(int[] arr) {
+            this.arr = arr;
+            this.current = -1;
+        }
+
+        public boolean hasNext() {
+            return current < arr.length - 1;
+        }
+
+        public int next() {
+            return arr[++current];
+        }
+
+        public int getCurrent() {
+            return arr[current + 1];
+        }
     }
 }
