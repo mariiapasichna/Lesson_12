@@ -7,7 +7,7 @@ public class Iterator {
     private int[][] arr;
     private int current;
     private int size;
-    private List<innerIterator> iterators;
+    private List<InnerIterator> iterators;
 
     public Iterator(int[][] arr) {
         this.arr = arr;
@@ -39,10 +39,10 @@ public class Iterator {
         return iterators.get(index).next();
     }
 
-    private List<innerIterator> createList() {
-        List<innerIterator> iterators = new ArrayList<>();
+    private List<InnerIterator> createList() {
+        List<InnerIterator> iterators = new ArrayList<>();
         for (int i = 0; i < arr.length; i++) {
-            iterators.add(new innerIterator(arr[i]));
+            iterators.add(new InnerIterator(arr[i]));
         }
         return iterators;
     }
@@ -54,11 +54,11 @@ public class Iterator {
         return size;
     }
 
-    private static class innerIterator {
+    private static class InnerIterator {
         private int[] arr;
         private int current;
 
-        public innerIterator(int[] arr) {
+        public InnerIterator(int[] arr) {
             this.arr = arr;
             this.current = -1;
         }

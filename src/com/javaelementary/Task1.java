@@ -1,5 +1,9 @@
 package com.javaelementary;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 public class Task1 {
 
     /*1) Написать метод `String reverse(String s) {...}`.
@@ -18,10 +22,8 @@ public class Task1 {
         String[] arr = s.split(" ");
         StringBuilder stringBuilder = new StringBuilder(s.length());
         for (int i = arr.length - 1; i > 0; i--) {
-            stringBuilder.append(arr[i]);
-            stringBuilder.append(" ");
+            stringBuilder.append(arr[i]).append(" ");
         }
-        stringBuilder.append(arr[0]);
-        return stringBuilder.toString();
+        return stringBuilder.append(arr[0]).toString();
     }
 }

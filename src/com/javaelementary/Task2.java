@@ -31,5 +31,9 @@ int[][] arr = {
         while (iterator.hasNext()) {
             System.out.println(iterator.next());
         }
+//        Iterator iterator = Stream.of(arr).flatMapToInt(IntStream::of).sorted().iterator();
+//        while (iterator.hasNext()) {
+//            System.out.println(iterator.next());
+//        }
     }
 }
